@@ -33,24 +33,31 @@ public class Game {
         this.id = id;
     }
 
-    public String getgameTitle() {
+    public Integer getAppId() {
+        return appId;
+    }
+    public void setAppId(Integer appId) {
+        this.appId = appId;
+    }
+
+    public String getGameTitle() {
         return gameTitle;
     }
-    public void setgameTitle(String gameTitle) {
+    public void setGameTitle(String gameTitle) {
         this.gameTitle = gameTitle;
     }
 
-    public String getdeveloper() {
+    public String getDeveloper() {
         return developer;
     }
-    public void setdeveloper(String developer) {
+    public void setDeveloper(String developer) {
         this.developer = developer;
     }
 
-    public Date getreleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
-    public void setreleaseDate(Date releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 }

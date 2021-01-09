@@ -3,6 +3,7 @@ package com.example.backendalfa.controller;
 import com.example.backendalfa.model.Game;
 import com.example.backendalfa.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -38,5 +39,27 @@ public class GameController {
     public Game addGame(@RequestBody Game game){
         gameRepository.save(game);
         return game;
+    }
+
+    @PutMapping("/games")
+    public Game updateGame(@RequestBody Game updatedGame){
+        Game retrievedGame = gameRepository.findGameByAppId(updatedGame.getAppId());
+        retrievedGame.setAppId(updatedGame.getAppId());
+        retrievedGame.setDeveloper(updatedGame.getDeveloper());
+        retrievedGame.setGameTitle(updatedGame.getGameTitle());
+        retrievedGame.setReleaseDate(updatedGame.getReleaseDate());
+        gameRepository.save(retrievedGame);
+        return retrievedGame;
+    }
+
+    @DeleteMapping("/games/game/{appId}")
+    public ResponseEntity deleteReview(@PathVariable Integer appId){
+        Game game = gameRepository.findGameByAppId(appId);
+        if(game!=null){
+            gameRepository.delete(game);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }
