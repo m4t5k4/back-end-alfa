@@ -25,9 +25,9 @@ public class GameController {
         }
     }
 
-    @GetMapping("games/game/{gameId}")
-    public Game getByAppId(@PathVariable Integer gameId){
-        return gameRepository.findGameByAppId(gameId);
+    @GetMapping("games/game/{appId}")
+    public Game getByAppId(@PathVariable Integer appId){
+        return gameRepository.findGameByAppId(appId);
     }
 
     @GetMapping("games/developer/{developer}")
