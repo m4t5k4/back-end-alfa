@@ -69,7 +69,7 @@ public class GameControllerIntegrationTests {
         gameList.add(game1);
         gameList.add(game1);
 
-        mockMvc.perform(get("/games/developer/{developer}", 620))
+        mockMvc.perform(get("/games/developer/{developer}", "developer1"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
