@@ -57,7 +57,7 @@ public class GameControllerUnitTests {
 
         given(gameRepository.findGameByAppId(1)).willReturn(game1);
 
-        mockMvc.perform(get("/reviews/user/{userId}/game/{appId}", 1))
+        mockMvc.perform(get("/games/{appId}", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("titel1")))
@@ -125,7 +125,7 @@ public class GameControllerUnitTests {
 
 
         given(gameRepository.findGameByAppId(1)).willReturn(GameToBeDeleted);
-        mockMvc.perform(delete("/games/game/{appId}", 3)
+        mockMvc.perform(delete("/games/{appId}", 3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -134,7 +134,7 @@ public class GameControllerUnitTests {
     public void givenNoGame_whenDeleteGame_thenStatusNotFound() throws Exception {
 
         given(gameRepository.findGameByAppId(1)).willReturn(null);
-        mockMvc.perform(delete("/games/game/{appId}", 999)
+        mockMvc.perform(delete("/games/{appId}", 999)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

@@ -25,7 +25,7 @@ public class GameController {
         }
     }
 
-    @GetMapping("games/game/{appId}")
+    @GetMapping("games/{appId}")
     public Game getByAppId(@PathVariable Integer appId){
         return gameRepository.findGameByAppId(appId);
     }
@@ -52,7 +52,7 @@ public class GameController {
         return retrievedGame;
     }
 
-    @DeleteMapping("/games/game/{appId}")
+    @DeleteMapping("/games/{appId}")
     public ResponseEntity deleteReview(@PathVariable Integer appId){
         Game game = gameRepository.findGameByAppId(appId);
         if(game!=null){

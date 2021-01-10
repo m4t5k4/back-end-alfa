@@ -53,7 +53,7 @@ public class GameControllerIntegrationTests {
     @Test
     public void givenGame_whenGetGameByAppId_thenReturnJsonReview() throws Exception {
 
-        mockMvc.perform(get("/reviews/user/{userId}/game/{appId}", 1))
+        mockMvc.perform(get("games/{appId}", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("titel1")))
@@ -115,7 +115,7 @@ public class GameControllerIntegrationTests {
     @Test
     public void givenGame_whenDeleteGame_thenStatusOk() throws Exception {
 
-        mockMvc.perform(delete("/games/game/{appId}", 3)
+        mockMvc.perform(delete("/games/{appId}", 3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -123,7 +123,7 @@ public class GameControllerIntegrationTests {
     @Test
     public void givenNoGame_whenDeleteGame_thenStatusNotFound() throws Exception {
 
-        mockMvc.perform(delete("/games/game/{appId}", 999)
+        mockMvc.perform(delete("/games/{appId}", 999)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
