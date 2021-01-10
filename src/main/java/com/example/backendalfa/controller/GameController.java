@@ -20,7 +20,7 @@ public class GameController {
     public void fillDB() {
         if (gameRepository.count()==0){
             gameRepository.save(new Game(620,"Portal 2","Valve",new Date(2011,4,19)));
-            gameRepository.save(new Game(1145360,"Hades","Spuergiant Games",new Date(2020,9,17));
+            gameRepository.save(new Game(1145360,"Hades","Spuergiant Games",new Date(2020,9,17)));
             gameRepository.save(new Game(427520, "Factorio","Wube Software LTD.", new Date()));
         }
     }
