@@ -39,7 +39,7 @@ public class GameControllerUnitTests {
 
     @Test
     public void givenGame_whenGetGameByAppId_thenReturnJsonReview() throws Exception {
-        Game game1 = new Game(1,"titel1", "developer1", new Date());
+        Game game1 = new Game(1,"titel1", "developer1", new Date(0));
         given(gameRepository.findGameByAppId(1)).willReturn(game1);
 
         mockMvc.perform(get("/games/{appId}", 1))
@@ -47,14 +47,15 @@ public class GameControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("titel1")))
                 .andExpect(jsonPath("$.developer", is("developer1")))
-                .andExpect(jsonPath("$.appId", is(1)));
+                .andExpect(jsonPath("$.appId", is(1)))
+                .andExpect(jsonPath("$.releaseDate", is("1970-01-01T00:00:00.000+00:00")));
         //date
     }
 
     @Test
     public void givenGames_whenGetGamesByDeveloper_thenReturnJsonReviews() throws Exception {
-        Game game1 = new Game(1,"titel1", "developer1", new Date());
-        Game game2 = new Game(2,"titel2", "developer1", new Date());
+        Game game1 = new Game(1,"titel1", "developer1", new Date(0));
+        Game game2 = new Game(2,"titel2", "developer1", new Date(0));
         List<Game> gameList = new ArrayList<>();
         gameList.add(game1);
         gameList.add(game2);
@@ -68,9 +69,11 @@ public class GameControllerUnitTests {
                 .andExpect(jsonPath("$[0].gameTitle", is("titel1")))
                 .andExpect(jsonPath("$[0].developer", is("developer1")))
                 .andExpect(jsonPath("$[0].appId", is(1)))
+                .andExpect(jsonPath("$[0].releaseDate", is("1970-01-01T00:00:00.000+00:00")))
                 .andExpect(jsonPath("$[1].gameTitle", is("titel2")))
                 .andExpect(jsonPath("$[1].developer", is("developer1")))
-                .andExpect(jsonPath("$[1].appId", is(2)));
+                .andExpect(jsonPath("$[1].appId", is(2)))
+                .andExpect(jsonPath("$[1].releaseDate", is("1970-01-01T00:00:00.000+00:00")));
     }
     //hier
     @Test
@@ -84,7 +87,8 @@ public class GameControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("posttitel")))
                 .andExpect(jsonPath("$.developer", is("developer2")))
-                .andExpect(jsonPath("$.appId", is(4)));
+                .andExpect(jsonPath("$.appId", is(4)))
+                .andExpect(jsonPath("$.releaseDate", is("1970-01-01T00:00:00.000+00:00")));
         //date
     }
 
@@ -102,7 +106,8 @@ public class GameControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("updatedtitel")))
                 .andExpect(jsonPath("$.developer", is("developer2")))
-                .andExpect(jsonPath("$.appId", is(1)));
+                .andExpect(jsonPath("$.appId", is(1)))
+                .andExpect(jsonPath("$.releaseDate", is("1970-01-01T00:00:00.000+00:00")));
         //date
     }
 
