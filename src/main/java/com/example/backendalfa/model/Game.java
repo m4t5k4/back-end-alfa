@@ -19,11 +19,12 @@ public class Game {
 
     }
 
-    public Game(String gameTitle, String developer, Date releaseDate, Integer appId){
+    public Game(Integer appId, String gameTitle, String developer, Date releaseDate){
+        this.appId = appId;
         this.gameTitle = gameTitle;
         this.developer = developer;
         this.releaseDate = releaseDate;
-        this.appId = appId;
+
     }
 
     public String getId() {

@@ -108,7 +108,7 @@ public class GameControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("updatedtitel")))
                 .andExpect(jsonPath("$.developer", is("developer2")))
-                .andExpect(jsonPath("$.appId", is(4)));
+                .andExpect(jsonPath("$.appId", is(1)));
         //date
     }
 

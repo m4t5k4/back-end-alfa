@@ -19,9 +19,9 @@ public class GameController {
     @PostConstruct
     public void fillDB() {
         if (gameRepository.count()==0){
-            gameRepository.save(new Game("game0","Jk Rowling", new Date(),0));
-            gameRepository.save(new Game("game1","Jk Rowing", new Date(),1));
-            gameRepository.save(new Game("game2","Jk Bowling", new Date(),2));
+            gameRepository.save(new Game(620,"Portal 2","Valve",new Date(2011,4,19)));
+            gameRepository.save(new Game(1145360,"Hades","Spuergiant Games",new Date(2020,9,17));
+            gameRepository.save(new Game(427520, "Factorio","Wube Software LTD.", new Date()));
         }
     }
 
