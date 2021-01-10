@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,31 +31,15 @@ public class GameControllerUnitTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private GameRepository gameRepository;
 
-    private Game game1 = new Game("titel1", "developer1", new Date(), 1);
-    private Game game2 = new Game("titel2", "developer1", new Date(), 2);
-    Game GameToBeDeleted = new Game("titel3", "developer2", new Date(), 3);
-
-    @BeforeEach
-    public void beforeAllTests() {
-        gameRepository.deleteAll();
-        gameRepository.save(game1);
-        gameRepository.save(game2);
-        gameRepository.save(GameToBeDeleted);
-    }
-
-    @AfterEach
-    public void afterAllTests() {
-        gameRepository.deleteAll();
-    }
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void givenGame_whenGetGameByAppId_thenReturnJsonReview() throws Exception {
-
+        Game game1 = new Game(1,"titel1", "developer1", new Date());
         given(gameRepository.findGameByAppId(1)).willReturn(game1);
 
         mockMvc.perform(get("/games/{appId}", 1))
@@ -62,16 +47,17 @@ public class GameControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("titel1")))
                 .andExpect(jsonPath("$.developer", is("developer1")))
-                .andExpect(jsonPath("$.appId", is(3)));
+                .andExpect(jsonPath("$.appId", is(1)));
         //date
     }
 
     @Test
     public void givenGames_whenGetGamesByDeveloper_thenReturnJsonReviews() throws Exception {
-
+        Game game1 = new Game(1,"titel1", "developer1", new Date());
+        Game game2 = new Game(2,"titel2", "developer1", new Date());
         List<Game> gameList = new ArrayList<>();
         gameList.add(game1);
-        gameList.add(game1);
+        gameList.add(game2);
 
         given(gameRepository.findGamesByDeveloper("developer1")).willReturn(gameList);
 
@@ -89,7 +75,7 @@ public class GameControllerUnitTests {
     //hier
     @Test
     public void whenPostGame_thenReturnJsonReview() throws Exception {
-        Game game4 = new Game("posttitel", "developer2", new Date(0), 4);
+        Game game4 = new Game(4,"posttitel", "developer2", new Date(0));
 
         mockMvc.perform(post("/games")
                 .content(mapper.writeValueAsString(game4))
@@ -105,7 +91,7 @@ public class GameControllerUnitTests {
     @Test
     public void givenGame_whenPutGame_thenReturnJsonReview() throws Exception {
 
-        Game game1 = new Game("updatedtitel", "developer2", new Date(0), 1);
+        Game game1 = new Game(1,"updatedtitel", "developer2", new Date(0));
 
         given(gameRepository.findGameByAppId(1)).willReturn(game1);
 
@@ -116,15 +102,16 @@ public class GameControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameTitle", is("updatedtitel")))
                 .andExpect(jsonPath("$.developer", is("developer2")))
-                .andExpect(jsonPath("$.appId", is(4)));
+                .andExpect(jsonPath("$.appId", is(1)));
         //date
     }
 
     @Test
     public void givenGame_whenDeleteGame_thenStatusOk() throws Exception {
 
+        Game GameToBeDeleted = new Game(3,"titel3", "developer2", new Date());
 
-        given(gameRepository.findGameByAppId(1)).willReturn(GameToBeDeleted);
+        given(gameRepository.findGameByAppId(3)).willReturn(GameToBeDeleted);
         mockMvc.perform(delete("/games/{appId}", 3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

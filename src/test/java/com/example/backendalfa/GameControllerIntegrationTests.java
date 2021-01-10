@@ -31,9 +31,9 @@ public class GameControllerIntegrationTests {
     @Autowired
     private GameRepository gameRepository;
 
-    private Game game1 = new Game("titel1", "developer1", new Date(), 1);
-    private Game game2 = new Game("titel2", "developer1", new Date(), 2);
-    private Game GameToBeDeleted = new Game("titel3", "developer2", new Date(), 3);
+    private Game game1 = new Game(1,"titel1", "developer1", new Date());
+    private Game game2 = new Game(2,"titel2", "developer1", new Date());
+    private Game GameToBeDeleted = new Game(3,"titel3", "developer2", new Date());
 
     @BeforeEach
     public void beforeAllTests() {
@@ -83,7 +83,7 @@ public class GameControllerIntegrationTests {
 //hier
     @Test
     public void whenPostGame_thenReturnJsonReview() throws Exception {
-        Game game4 = new Game("posttitel", "developer2", new Date(0), 4);
+        Game game4 = new Game(4,"posttitel", "developer2", new Date(0));
 
         mockMvc.perform(post("/games")
                 .content(mapper.writeValueAsString(game4))
@@ -99,7 +99,7 @@ public class GameControllerIntegrationTests {
     @Test
     public void givenGame_whenPutGame_thenReturnJsonReview() throws Exception {
 
-        Game updatedGame = new Game("updatedtitel", "developer2", new Date(0), 1);
+        Game updatedGame = new Game(1,"updatedtitel", "developer2", new Date(0));
 
         mockMvc.perform(put("/games")
                 .content(mapper.writeValueAsString(updatedGame))
